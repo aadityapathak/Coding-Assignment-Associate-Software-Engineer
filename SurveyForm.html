@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Survey Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #007BFF;
+            color: white;
+            padding: 20px;
+        }
+
+        center p {
+            font-size: 50px;
+            font-family: Gill Sans, sans-serif;
+            display: inline;
+            font-weight: lighter;
+        }
+
+        .container {
+            width: 500px;
+            margin: 10px auto;
+            background-color: white;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+
+        form {
+            margin-top: 20px;
+        }
+
+        label {
+            display: block;
+            margin-top: 10px;
+            background-color: white;
+            color: black;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        select {
+            width: 100%;
+            padding: 5px;
+        }
+
+        .row {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .checkbox-group {
+            margin-top: 10px;
+            display: flex;
+        }
+
+        .checkbox-group label {
+            margin-right: 20px;
+        }
+
+        button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        center p {
+            width: 200px;
+        }
+    </style>
+</head>
+
+<body>
+    <center>
+        <p>Survey Form</p>
+    </center>
+    <div class="container">
+        <form id="survey-form">
+            <div class="row">
+                <p><label for="first-name">First Name</label>
+                    <input type="text" id="first-name" required>
+                </p>
+                <p><label for="last-name">Last Name</label>
+                    <input type="text" id="last-name" required>
+                </p>
+            </div>
+
+            <label for="dob">Date of Birth</label>
+            <input type="date" id="dob" required>
+
+            <label for="country">Country</label>
+            <select id="country" required>
+                <option value="USA">United States</option>
+                <option value="UK">United Kingdom</option>
+                <option value="CA">Canada</option>
+                <option value="AU">Australia</option>
+                <option value="FR">France</option>
+                <option value="DE">Germany</option>
+                <option value="JP">Japan</option>
+                <option value="BR">Brazil</option>
+                <option value="IN">India</option>
+            </select>
+
+            <div class="checkbox-group">
+                <label>Gender:</label>
+                <label><input type="checkbox" name="gender" value="male"> Male</label>
+                <label><input type="checkbox" name="gender" value="female"> Female</label>
+                <label><input type="checkbox" name="gender" value="other"> Other</label>
+            </div>
+
+            <label for="profession">Profession</label>
+            <input type="text" id="profession" required>
+
+            <label for="email">Email</label>
+            <input type="email" id="email" required>
+
+            <label for="mobile">Mobile Number</label>
+            <input type="tel" id="mobile" required>
+
+            <button type="button" id="submit-button" onclick="validateForm()">Submit</button>
+            <button type="button" id="reset-button" onclick="resetForm()">Reset</button>
+        </form>
+    </div>
+
+    <script>
+        function validateForm() {
+            const firstName = document.getElementById('first-name').value;
+            const lastName = document.getElementById('last-name').value;
+            const dob = document.getElementById('dob').value;
+            const country = document.getElementById('country').value;
+            const gender = [...document.getElementsByName('gender')]
+                .filter(checkbox => checkbox.checked)
+                .map(checkbox => checkbox.value)
+                .join(', ');
+            const profession = document.getElementById('profession').value;
+            const email = document.getElementById('email').value;
+            const mobile = document.getElementById('mobile').value;
+
+            if (!firstName || !lastName || !dob || !country || !gender || !profession || !email || !mobile) {
+                alert("Please fill in all fields.");
+            } else {
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                const mobileRegex = /^[0-9]{10}$/;
+
+                if (!email.match(emailRegex)) {
+                    alert("Invalid email address.");
+                } else if (!mobile.match(mobileRegex)) {
+                    alert("Invalid mobile number. Please enter a 10-digit number.");
+                } else {
+                    const popupText = `
+                        First Name: ${firstName}
+                        Last Name: ${lastName}
+                        Date of Birth: ${dob}
+                        Country: ${country}
+                        Gender: ${gender}
+                        Profession: ${profession}
+                        Email: ${email}
+                        Mobile Number: ${mobile}
+                    `;
+
+                    alert(popupText);
+                    resetForm();
+                }
+            }
+        }
+
+        function resetForm() {
+            document.getElementById('survey-form').reset();
+        }
+    </script>
+</body>
+
+</html>
