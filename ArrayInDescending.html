@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Sort Array in Descending Order</title>
+</head>
+
+<body>
+    <h2>Sort Array in Descending Order</h2>
+    <p>Enter comma-separated numbers: <input type="text" id="inputArray"></p>
+    <button onclick="sortDescending()">Sort Descending</button>
+    <p id="outputArray"></p>
+
+    <script>
+        function sortDescending() {
+            var inputArray = document.getElementById("inputArray").value;
+            var numbers = inputArray.split(',').map(function (item) {
+                return parseFloat(item);
+            });
+
+            for (var i = 0; i < numbers.length; i++) {
+                for (var j = i + 1; j < numbers.length; j++) {
+                    if (numbers[i] < numbers[j]) {
+                        var temp = numbers[i];
+                        numbers[i] = numbers[j];
+                        numbers[j] = temp;
+                    }
+                }
+            }
+
+            var outputArray = numbers.join(', ');
+            document.getElementById("outputArray").textContent = "Sorted Array (Descending): " + outputArray;
+        }
+    </script>
+</body>
+
+</html>
